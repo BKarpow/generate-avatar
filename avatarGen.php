@@ -21,7 +21,7 @@ $name = mb_strtoupper($name);
 $name = $name[0] ;
 
 // PNG изображение
-header('Content-type: image/png');
+header('Content-type: image/jpg');
 // 150x100
 $im = imagecreatetruecolor($size[0], $size[1]);
 $color = imageColorAllocate($im, 255, 255, 255); //Цвет шрифта
@@ -54,6 +54,8 @@ imagefill($im, 1, 1, $randomColor);
 imagettftext($im, FONT_SIZE, 0, $x, $y, $color, FONT, $name);
  
 // Выводим изображение
-imagepng($im);
+// imagepng($im);
+imagejpeg($im);
+imagedestroy($im);
 
 ?>

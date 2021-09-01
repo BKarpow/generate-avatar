@@ -1,6 +1,14 @@
 <?php 
 require 'vendor/autoload.php';
+require 'app/GenerateAvatar.php';
+require 'app/Svg.php';
+
+$avatar = new App\GenerateAvatar();
+
 $faker = Faker\Factory::create();
+error_reporting(E_ALL);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -11,15 +19,37 @@ $faker = Faker\Factory::create();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-    img{
-      clip-path: circle(50px);
+    svg{
+      clip-path: circle(2rem);
+    }
+    body{
+      counter-reset: section;
+      display:flex;
+      justify-content: center;
+      column-gap: .7rem;
+      flex-wrap: wrap;
+    }
+    img::before{
+      counter-increment: section;                 /* Инкрементирует счётчик*/
+      content: counter(section)
+      transform: translate(2rem, 2rrm);
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.3rem;
     }
   </style>
 </head>
 <body>
-    <?php foreach(range(0,19) as $item): ?>
-      
-  <img src="avatarGen.php?name=<?=$faker->name?>&size=100x100" alt=""> <br />
+    <?php foreach(range(1,80) as $item): ?>
+      <div>
+        <?php
+          $name = null;
+          $name = $faker->name;
+        ?>
+        <strong><?=$item?></strong>
+        <?=$avatar->getSvgAvatar($name)?> <br />
+      </div>
+  
   <?php endforeach; ?>
 </body>
 </html>
